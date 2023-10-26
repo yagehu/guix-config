@@ -28,3 +28,5 @@ GUIX_PROFILE="$HOME/.config/guix/current"
 
 GUIX_PROFILE="/home/huyage/.guix-profile"
 . "$GUIX_PROFILE/etc/profile"
+
+source ~/.profile

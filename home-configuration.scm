@@ -6,11 +6,13 @@
 
 (use-modules (gnu home)
              (gnu packages)
-             (gnu services)
+  (gnu services)
   (guix channels)
   (guix gexp)
+  (gnu home services)
   (gnu home services guix)
   (gnu home services shells)
+  (huyage home services dconf)
   (huyage packages fonts)
 )
 
@@ -32,6 +34,7 @@
 					    "emacs-which-key"
 					    "font-nerd-fonts-cascadia-code"
 					    "libvterm"
+                                            "xdot"
                                             "zsh"
                                             "firefox"
                                             "neovim")))
@@ -53,8 +56,29 @@
       )
       (service home-zsh-service-type
         (home-zsh-configuration
+          (zprofile (list (local-file ".zprofile" "zprofile")))
 	  (zshrc (list (local-file ".zshrc" "zshrc")))
         )
+      )
+      (simple-service 'alacritty-config
+        home-xdg-configuration-files-service-type
+       `( ("alacritty.yml" ,(local-file ".config/alacritty.yml"))
+        )
+      )
+      ;; https://git.sr.ht/~michal_atlas/dotfiles/tree/16ccb8dd549494fd4165f706c899b591903d1a6d/item/home.scm
+      (service home-dconf-load-service-type
+       #~`( ( org/gnome/settings-daemon/plugins/media-keys
+              (custom-keybindings
+               #( "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+                )
+              )
+            )
+            ( org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0
+              (binding "<Super>Return")
+              (command "alacritty")
+              (name "Launch alacritty")
+            )
+          )
       )
       (simple-service 'nonguix-channel-service
         home-channels-service-type

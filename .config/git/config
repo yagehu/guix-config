@@ -1,0 +1,12 @@
+[alias]
+br = branch
+ci = commit
+co = checkout
+st = status
+
+[init]
+defaultBranch = main
+
+[user]
+name = "Yage Hu"
+email = "me@huyage.dev"

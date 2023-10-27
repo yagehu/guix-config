@@ -28,8 +28,10 @@
 					    "emacs-doom-modeline"
 					    "emacs-doom-themes"
 					    "emacs-exec-path-from-shell"
+                                            "emacs-magit"
                                             "emacs-nerd-icons"
 					    "emacs-use-package"
+                                            "emacs-vertico"
 					    "emacs-vterm"
 					    "emacs-which-key"
 					    "font-nerd-fonts-cascadia-code"
@@ -62,8 +64,11 @@
       )
       (simple-service 'alacritty-config
         home-xdg-configuration-files-service-type
-       `( ("alacritty.yml" ,(local-file ".config/alacritty.yml"))
-        )
+       `(("alacritty.yml" ,(local-file ".config/alacritty.yml")))
+      )
+      (simple-service 'git-config
+        home-xdg-configuration-files-service-type
+       `(("git/config" ,(local-file ".config/git/config")))
       )
       ;; https://git.sr.ht/~michal_atlas/dotfiles/tree/16ccb8dd549494fd4165f706c899b591903d1a6d/item/home.scm
       (service home-dconf-load-service-type
